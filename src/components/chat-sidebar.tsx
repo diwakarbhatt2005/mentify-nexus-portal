@@ -92,19 +92,19 @@ export function ChatSidebar({ isOpen, onToggle, className }: ChatSidebarProps) {
       
       {/* Sidebar */}
       <aside className={cn(
-        "fixed left-0 top-0 z-50 h-full w-80 transform border-r border-border bg-sidebar transition-transform duration-300 ease-in-out md:relative md:z-auto md:translate-x-0",
+        "fixed left-0 top-0 z-50 h-full w-80 transform border-r border-sidebar-border/30 glass-heavy transition-transform duration-300 ease-in-out md:relative md:z-auto md:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full",
         className
       )}>
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
-            <h2 className="text-lg font-semibold text-sidebar-foreground">Chat History</h2>
+          <div className="flex h-18 items-center justify-between border-b border-sidebar-border/30 px-6 glass">
+            <h2 className="text-lg font-bold text-sidebar-foreground gradient-text">Chat History</h2>
             <Button
               variant="ghost"
               size="icon"
               onClick={clearHistory}
-              className="text-sidebar-foreground hover:bg-sidebar-accent"
+              className="text-sidebar-foreground hover:bg-sidebar-accent hover-neural"
               disabled={history.length === 0}
             >
               <Trash2 className="h-4 w-4" />
@@ -112,11 +112,14 @@ export function ChatSidebar({ isOpen, onToggle, className }: ChatSidebarProps) {
           </div>
 
           {/* New Chat Button */}
-          <div className="p-4 border-b border-sidebar-border">
-            <Button className="w-full justify-start gap-2 bg-sidebar-primary hover:bg-sidebar-primary/90">
-              <Plus className="h-4 w-4" />
-              New Chat
-            </Button>
+          <div className="p-4 border-b border-sidebar-border/30">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary-glow rounded-lg blur opacity-10 group-hover:opacity-30 transition duration-300"></div>
+              <Button variant="modern" className="relative w-full justify-start gap-2 shadow-lg">
+                <Plus className="h-4 w-4" />
+                New Chat
+              </Button>
+            </div>
           </div>
 
           {/* Chat History */}

@@ -5,7 +5,7 @@ import { ChatMessage } from "./chat-message";
 import { ChatInput } from "./chat-input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 import mentifyLogo from "@/assets/mentify-logo.png";
 
 interface Message {
@@ -95,13 +95,16 @@ export function ChatLayout() {
   };
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background neural-bg relative overflow-hidden">
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 mesh-bg opacity-20"></div>
+      
       <ChatSidebar 
         isOpen={sidebarOpen} 
         onToggle={() => setSidebarOpen(!sidebarOpen)} 
       />
       
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden relative z-10">
         <ChatHeader
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
           selectedModel={selectedModel}
@@ -116,22 +119,37 @@ export function ChatLayout() {
           >
             <div className="mx-auto max-w-4xl">
               {messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full py-12 text-center">
-                  <div className="relative mb-8">
+                <div className="flex flex-col items-center justify-center h-full py-16 text-center relative">
+                  {/* Floating elements */}
+                  <div className="absolute top-20 left-1/4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
+                  <div className="absolute top-32 right-1/3 w-1 h-1 bg-primary-glow/40 rounded-full animate-pulse delay-300"></div>
+                  <div className="absolute bottom-40 left-1/3 w-1.5 h-1.5 bg-primary/20 rounded-full animate-pulse delay-700"></div>
+                  
+                  <div className="relative mb-12 group">
+                    <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-primary-glow/30 to-primary/20 rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition duration-500"></div>
                     <img 
                       src={mentifyLogo} 
                       alt="Mentify-AI" 
-                      className="w-20 h-20 object-contain animate-glow-pulse"
+                      className="relative w-24 h-24 object-contain floating"
                     />
                   </div>
-                  <h2 className="text-3xl font-bold mb-3 gradient-text">Welcome to Mentify-AI</h2>
-                  <p className="text-lg font-medium mb-2">Best Buddy's</p>
-                  <p className="text-muted-foreground max-w-md leading-relaxed">
-                    Your intelligent companion is ready to help. Start a conversation by typing a message below.
-                  </p>
+                  
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-center gap-3">
+                      <h2 className="text-4xl font-bold gradient-text">Welcome to Mentify-AI</h2>
+                      <Sparkles className="h-6 w-6 text-primary animate-pulse" />
+                    </div>
+                    <p className="text-xl font-semibold text-primary/80 mb-4">Best Buddy's</p>
+                    <div className="card-modern p-8 max-w-2xl backdrop-blur-xl">
+                      <p className="text-muted-foreground text-lg leading-relaxed">
+                        Your intelligent companion powered by advanced AI. Experience seamless conversations, 
+                        get instant answers, and unlock endless possibilities. Start your journey into the future of AI interaction.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ) : (
-                <div className="space-y-0">
+                <div className="space-y-0 relative">
                   {messages.map((message) => (
                     <ChatMessage key={message.id} message={message} />
                   ))}
@@ -141,16 +159,19 @@ export function ChatLayout() {
             </div>
           </ScrollArea>
 
-          {/* Scroll to bottom button */}
+          {/* Enhanced scroll to bottom button */}
           {!isAtBottom && (
-            <Button
-              onClick={scrollToBottom}
-              size="icon"
-              variant="outline"
-              className="absolute bottom-20 right-6 h-10 w-10 rounded-full shadow-lg hover-glow"
-            >
-              <ArrowDown className="h-4 w-4" />
-            </Button>
+            <div className="absolute bottom-24 right-6 group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary to-primary-glow rounded-full blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+              <Button
+                onClick={scrollToBottom}
+                size="icon"
+                variant="modern"
+                className="relative h-12 w-12 rounded-full shadow-2xl"
+              >
+                <ArrowDown className="h-5 w-5" />
+              </Button>
+            </div>
           )}
         </div>
         

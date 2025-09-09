@@ -32,26 +32,26 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <div className={cn(
-      "group flex gap-4 px-4 py-6 hover:bg-muted/20 transition-colors",
+      "group flex gap-4 px-6 py-8 hover:bg-muted/10 transition-all duration-300",
       message.role === "user" ? "justify-end" : "justify-start"
     )}>
       {message.role === "assistant" && (
-        <Avatar className="h-8 w-8 border-2 border-primary/20">
-          <AvatarFallback className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground text-sm font-medium">
+        <Avatar className="h-9 w-9 border-2 border-primary/30 hover-neural">
+          <AvatarFallback className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground text-sm font-bold">
             AI
           </AvatarFallback>
         </Avatar>
       )}
       
       <div className={cn(
-        "flex flex-col gap-2 max-w-[80%] md:max-w-[70%]",
+        "flex flex-col gap-3 max-w-[80%] md:max-w-[70%]",
         message.role === "user" ? "items-end" : "items-start"
       )}>
         <div className={cn(
-          "rounded-2xl px-4 py-3 shadow-sm",
+          "rounded-2xl px-5 py-4 shadow-sm hover-neural transition-all duration-300",
           message.role === "user" 
-            ? "bg-primary text-primary-foreground" 
-            : "bg-card border border-border"
+            ? "bg-gradient-to-r from-primary to-primary-glow text-primary-foreground shadow-lg" 
+            : "glass border border-border/30 bg-card/40 text-card-foreground"
         )}>
           <div className="text-sm leading-relaxed whitespace-pre-wrap">
             {message.content}
@@ -97,8 +97,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
       </div>
 
       {message.role === "user" && (
-        <Avatar className="h-8 w-8 border-2 border-muted">
-          <AvatarFallback className="bg-muted text-foreground text-sm font-medium">
+        <Avatar className="h-9 w-9 border-2 border-primary/30 hover-neural">
+          <AvatarFallback className="bg-gradient-to-br from-primary-glow to-primary text-primary-foreground text-sm font-bold">
             You
           </AvatarFallback>
         </Avatar>

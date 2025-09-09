@@ -44,15 +44,25 @@
     --chat-assistant-bg: 220 13% 95%;
     --chat-input-bg: 0 0% 100%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(194 98% 50%), hsl(194 98% 65%));
+    /* Advanced Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(194 98% 50%), hsl(194 98% 65%), hsl(220 100% 70%));
     --gradient-subtle: linear-gradient(135deg, hsl(220 13% 98%), hsl(220 13% 95%));
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-
-    /* Effects */
-    --shadow-glow: 0 0 40px hsl(194 98% 50% / 0.15);
-    --shadow-elegant: 0 10px 30px -10px hsl(220 13% 18% / 0.1);
-    --backdrop-blur: blur(12px);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    --gradient-mesh: radial-gradient(ellipse at top, hsl(194 98% 50% / 0.1), transparent 50%), 
+                     radial-gradient(ellipse at bottom right, hsl(220 100% 70% / 0.1), transparent 50%);
+    --gradient-aurora: linear-gradient(45deg, hsl(194 98% 50%), hsl(220 100% 70%), hsl(280 100% 70%), hsl(194 98% 50%));
+    
+    /* Advanced Effects */
+    --shadow-glow: 0 0 40px hsl(194 98% 50% / 0.2);
+    --shadow-elegant: 0 20px 60px -10px hsl(220 13% 18% / 0.15);
+    --shadow-neural: 0 8px 32px hsl(194 98% 50% / 0.12), 0 2px 8px hsl(194 98% 50% / 0.08);
+    --backdrop-blur: blur(16px);
+    --backdrop-blur-heavy: blur(24px);
+    
+    /* Neural Network Pattern */
+    --neural-pattern: radial-gradient(circle at 20% 50%, hsl(194 98% 50% / 0.05) 1px, transparent 1px),
+                      radial-gradient(circle at 80% 50%, hsl(220 100% 70% / 0.05) 1px, transparent 1px),
+                      radial-gradient(circle at 40% 20%, hsl(280 100% 70% / 0.03) 1px, transparent 1px);
 
     /* Sidebar */
     --sidebar-background: 220 13% 98%;
@@ -102,14 +112,23 @@
     --chat-assistant-bg: 220 13% 15%;
     --chat-input-bg: 220 13% 12%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(194 98% 50%), hsl(194 98% 65%));
+    /* Advanced Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(194 98% 50%), hsl(194 98% 65%), hsl(220 100% 70%));
     --gradient-subtle: linear-gradient(135deg, hsl(220 13% 12%), hsl(220 13% 15%));
-    --gradient-glass: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+    --gradient-glass: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
+    --gradient-mesh: radial-gradient(ellipse at top, hsl(194 98% 50% / 0.15), transparent 50%), 
+                     radial-gradient(ellipse at bottom right, hsl(220 100% 70% / 0.15), transparent 50%);
+    --gradient-aurora: linear-gradient(45deg, hsl(194 98% 50%), hsl(220 100% 70%), hsl(280 100% 70%), hsl(194 98% 50%));
 
-    /* Effects */
-    --shadow-glow: 0 0 40px hsl(194 98% 50% / 0.25);
-    --shadow-elegant: 0 10px 30px -10px hsl(220 13% 9% / 0.8);
+    /* Advanced Effects */
+    --shadow-glow: 0 0 50px hsl(194 98% 50% / 0.3);
+    --shadow-elegant: 0 20px 60px -10px hsl(220 13% 9% / 0.9);
+    --shadow-neural: 0 8px 32px hsl(194 98% 50% / 0.2), 0 2px 8px hsl(194 98% 50% / 0.1);
+    
+    /* Neural Network Pattern */
+    --neural-pattern: radial-gradient(circle at 20% 50%, hsl(194 98% 50% / 0.08) 1px, transparent 1px),
+                      radial-gradient(circle at 80% 50%, hsl(220 100% 70% / 0.08) 1px, transparent 1px),
+                      radial-gradient(circle at 40% 20%, hsl(280 100% 70% / 0.05) 1px, transparent 1px);
 
     /* Sidebar */
     --sidebar-background: 220 13% 12%;
@@ -135,31 +154,84 @@
 }
 
 @layer components {
-  /* Glass morphism effects */
+  /* Advanced Glass morphism effects */
   .glass {
-    @apply backdrop-blur-md bg-gradient-to-br;
+    @apply backdrop-blur-xl;
     background: var(--gradient-glass);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  .glass-heavy {
+    backdrop-filter: var(--backdrop-blur-heavy);
+    background: var(--gradient-glass);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-neural);
   }
 
-  /* Chat message animations */
-  .message-fade-in {
-    @apply animate-fade-in;
+  /* Neural background pattern */
+  .neural-bg {
+    background: var(--neural-pattern);
+    background-size: 60px 60px;
+  }
+  
+  .mesh-bg {
+    background: var(--gradient-mesh);
   }
 
-  /* Hover effects */
+  /* Advanced hover effects */
   .hover-glow {
-    @apply transition-all duration-300;
+    @apply transition-all duration-500 ease-out;
+    transform-origin: center;
   }
   
   .hover-glow:hover {
     box-shadow: var(--shadow-glow);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.02);
+  }
+  
+  .hover-neural {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-neural:hover {
+    box-shadow: var(--shadow-neural);
+    transform: translateY(-1px);
   }
 
-  /* Custom scrollbar */
+  /* Button specific hover effects */
+  .btn-modern {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+  }
+  
+  .btn-modern::before {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    content: '';
+    background: linear-gradient(135deg, hsl(var(--primary-glow)), hsl(var(--primary)));
+  }
+  
+  .btn-modern:hover::before {
+    @apply opacity-100;
+  }
+  
+  .btn-modern > * {
+    @apply relative z-10;
+  }
+
+  /* Floating elements */
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Advanced scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -167,18 +239,46 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground rounded-full opacity-30;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    @apply rounded-full opacity-40;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply opacity-50;
+    @apply opacity-70;
   }
 
-  /* Gradient text */
+  /* Enhanced gradient text */
   .gradient-text {
-    background: var(--gradient-primary);
+    background: var(--gradient-aurora);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  /* Modern card styles */
+  .card-modern {
+    @apply relative;
+    background: var(--gradient-glass);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .card-modern::before {
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
+    content: '';
+    background: var(--gradient-mesh);
+    z-index: -1;
+  }
+  
+  .card-modern:hover::before {
+    @apply opacity-100;
   }
 }

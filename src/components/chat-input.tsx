@@ -54,14 +54,20 @@ export function ChatInput({
   };
 
   return (
-    <div className="border-t border-border bg-background/80 backdrop-blur-md p-4">
-      <div className="mx-auto max-w-4xl">
-        <div className="relative flex items-end gap-3 rounded-2xl border border-border bg-card/50 p-3 shadow-sm backdrop-blur-sm">
+    <div className="border-t border-border/30 glass-heavy neural-bg p-4 relative">
+      {/* Ambient glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-50"></div>
+      
+      <div className="mx-auto max-w-4xl relative z-10">
+        <div className="relative flex items-end gap-3 rounded-2xl border border-border/30 glass-heavy p-4 shadow-lg hover-neural">
+          {/* Subtle glow around input area */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-primary-glow/10 rounded-2xl blur opacity-0 hover:opacity-100 transition duration-300"></div>
+          
           {/* Attachment Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 text-muted-foreground hover:text-foreground"
+            className="relative h-10 w-10 text-muted-foreground hover:text-primary hover-neural"
             disabled={disabled}
           >
             <Paperclip className="h-4 w-4" />
@@ -77,8 +83,8 @@ export function ChatInput({
               placeholder={placeholder}
               disabled={disabled}
               className={cn(
-                "min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-muted-foreground",
-                "scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+                "min-h-[20px] max-h-[120px] resize-none border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-muted-foreground/70",
+                "scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
               )}
               style={{ height: 'auto' }}
             />
@@ -90,35 +96,37 @@ export function ChatInput({
             size="icon"
             onClick={toggleRecording}
             className={cn(
-              "h-9 w-9 transition-colors",
+              "relative h-10 w-10 transition-all duration-300 hover-neural",
               isRecording 
                 ? "text-red-500 hover:text-red-600 animate-pulse" 
-                : "text-muted-foreground hover:text-foreground"
+                : "text-muted-foreground hover:text-primary"
             )}
             disabled={disabled}
           >
             <Mic className="h-4 w-4" />
           </Button>
 
-          {/* Send Button */}
-          <Button
-            onClick={handleSendMessage}
-            disabled={disabled || !message.trim()}
-            size="icon"
-            className={cn(
-              "h-9 w-9 transition-all duration-200",
-              message.trim() 
-                ? "bg-primary hover:bg-primary/90 text-primary-foreground hover-glow" 
-                : "bg-muted text-muted-foreground"
-            )}
-          >
-            <Send className="h-4 w-4" />
-          </Button>
+          {/* Enhanced Send Button */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary-glow rounded-lg blur opacity-0 group-hover:opacity-50 transition duration-300"></div>
+              <Button
+                onClick={handleSendMessage}
+                disabled={disabled || !message.trim()}
+                size="icon"
+                variant={message.trim() ? "modern" : "ghost"}
+                className={cn(
+                  "relative h-10 w-10 transition-all duration-300",
+                  !message.trim() && "bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
+              >
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
 
-        <div className="mt-2 text-center">
-          <p className="text-xs text-muted-foreground">
-            Press Enter to send, Shift+Enter for new line
+        <div className="mt-3 text-center">
+          <p className="text-xs text-muted-foreground/80">
+            Press <kbd className="px-1.5 py-0.5 text-xs bg-muted/50 rounded">Enter</kbd> to send • <kbd className="px-1.5 py-0.5 text-xs bg-muted/50 rounded">Shift+Enter</kbd> for new line
           </p>
         </div>
       </div>
